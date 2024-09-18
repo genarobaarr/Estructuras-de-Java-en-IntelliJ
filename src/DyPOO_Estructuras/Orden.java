@@ -15,7 +15,7 @@ public class Orden {
         alumnos.add(new Alumno("S2001","Dalton Vega",0));
 
         List<String> frutas = new ArrayList<>();
-        frutas.add("Sandia");
+        frutas.add("sandia");
         frutas.add("fresa");
         frutas.add("manzana");
 

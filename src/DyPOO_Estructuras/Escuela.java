@@ -3,33 +3,59 @@ package DyPOO_Estructuras;
 import java.util.*;
 
 public class Escuela {
+    private Map<String, Set<String>> estudiantesMaterias = new HashMap<>();
+
     public static void main(String[] args) {
-        List<Alumno> alumnos = new ArrayList<>();
-        alumnos.add(new Alumno("S1901","Mario Lopez",0));
-        alumnos.add(new Alumno("S2002","Sergio Cuellar",0));
-        alumnos.add(new Alumno("S1803","Josh Nicols",0));
-        alumnos.add(new Alumno("S2101","Catalina Gonzales",0));
-        alumnos.add(new Alumno("S2209","Ariadna Gallegos",0));
-        alumnos.add(new Alumno("S1902","Marcelo Trello",0));
-        alumnos.add(new Alumno("S2104","Paolo Maldonado",0));
-        alumnos.add(new Alumno("S2001","Dalton Vega",0));
 
-        List<String> frutas = new ArrayList<>();
-        frutas.add("Sandia");
-        frutas.add("fresa");
-        frutas.add("manzana");
+        Escuela esc = new Escuela();
 
-        System.out.println("LISTA DE FRUTAS");
-        Collections.sort(frutas);
+        esc.agregarEstudiante("Liam", new String[]{"Matemáticas", "Física", "Historia"});
+        esc.agregarEstudiante("Marian", new String[]{"Química", "Física", "Inglés"});
+        esc.agregarEstudiante("Paola", new String[]{"Programación", "Biología", "Inglés"});
+        esc.agregarEstudiante("Carlo", new String[]{"Historia", "Inglés", "Biología", "Programación"});
 
-        for(String f : frutas){
-            System.out.println(f);
+        esc.mostrarEstudiantes();
+
+        esc.mostrarMateriasEstudiante("Liam");
+
+        esc.mostrarMateriasComoArray("Marian");
+    }
+
+    public void agregarEstudiante(String nombre, String[] materias) {
+        Set<String> setMaterias = new HashSet<>(Arrays.asList(materias));
+        //Set<String> setMaterias = new HashSet<>();
+        for(String materia : materias){
+            setMaterias.add(materia);
         }
+        estudiantesMaterias.put(nombre, setMaterias);
+    }
 
-        Collections.sort(alumnos);
-        System.out.println("LISTA DE ALUMNOS");
-        for (Alumno a : alumnos) {
-            System.out.println(a);
+    public void mostrarEstudiantes() {
+        System.out.println("\n");
+        System.out.println("Lista de estudiantes y sus materias:");
+        for (Map.Entry<String, Set<String>> entry : estudiantesMaterias.entrySet()) {
+            System.out.println("Estudiante: " + entry.getKey() + " -> Materias: " + entry.getValue());
         }
+        System.out.println("\n");
+    }
+
+    public void mostrarMateriasEstudiante(String nombre) {
+        Set<String> materias = estudiantesMaterias.get(nombre);
+        if (materias != null) {
+            System.out.println(nombre + " está inscrito en las siguientes materias: " + materias);
+        } else {
+            System.out.println("Estudiante no encontrado.");
+        }
+        System.out.println("\n");
+    }
+    public void mostrarMateriasComoArray(String nombre) {
+        Set<String> materias = estudiantesMaterias.get(nombre);
+        if (materias != null) {
+            String[] materiasArray = materias.toArray(new String[0]);
+            System.out.println("Materias de " + nombre + " en formato de arreglo: " + Arrays.toString(materiasArray));
+        } else {
+            System.out.println("Estudiante no encontrado.");
+        }
+        System.out.println("\n");
     }
 }
